@@ -14,14 +14,6 @@
     {
       "src": "/api/(.*)",
       "dest": "api/$1.py"
-    },
-    {
-      "src": "/icons/(.*)",
-      "dest": "new_ui/public/icons/$1"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "new_ui/$1"
     }
   ]
 }
