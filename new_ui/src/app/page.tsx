@@ -56,12 +56,12 @@ import GradientCards from "@/components/ui/GradientCards";
 
 // 智能体配置
 const AGENTS = [
-  { id: "profile", name: "画像分析智能体", avatar: "/icons/Emma-ProductManager-Avatar_origin.BBeqkRr7.webp", color: "#3b82f6", bgLight: "#eff6ff" },
-  { id: "enrich", name: "数据补全智能体", avatar: "/icons/David-DataAnalyst-Avatar_origin.CahzHabe.webp", color: "#8b5cf6", bgLight: "#f5f3ff" },
-  { id: "match", name: "广告匹配智能体", avatar: "/icons/Adrian-AdsAgent-Avatar.D1HVIhCr.png", color: "#10b981", bgLight: "#ecfdf5" },
-  { id: "creative", name: "创意生成智能体", avatar: "/icons/Bob-Architect-Avatar_origin.Cdi-oMPW.webp", color: "#f97316", bgLight: "#fff7ed" },
-  { id: "sales", name: "销售对话智能体", avatar: "/icons/Alex-Engineer-Avatar_origin.zHMG8gqX.webp", color: "#ec4899", bgLight: "#fdf2f8" },
-  { id: "optimization", name: "优化分析智能体", avatar: "/icons/Iris-DeepResearcher-Avatar_origin.uohFf0-y.webp", color: "#06b6d4", bgLight: "#ecfeff" }
+  { id: "profile", name: "画像分析智能体", avatar: "/icons/emma.webp", color: "#3b82f6", bgLight: "#eff6ff" },
+  { id: "enrich", name: "数据补全智能体", avatar: "/icons/david.webp", color: "#8b5cf6", bgLight: "#f5f3ff" },
+  { id: "match", name: "广告匹配智能体", avatar: "/icons/adrian.png", color: "#10b981", bgLight: "#ecfdf5" },
+  { id: "creative", name: "创意生成智能体", avatar: "/icons/bob.webp", color: "#f97316", bgLight: "#fff7ed" },
+  { id: "sales", name: "销售对话智能体", avatar: "/icons/alex.webp", color: "#ec4899", bgLight: "#fdf2f8" },
+  { id: "optimization", name: "优化分析智能体", avatar: "/icons/iris.webp", color: "#06b6d4", bgLight: "#ecfeff" }
 ];
 
 interface WorkflowStep {
