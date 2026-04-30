@@ -1,0 +1,15 @@
+# Ignore Python files for Vercel deployment
+*.py
+.env
+__pycache__/
+*.log
+ad_system.py
+requirements.txt
+README.md
+系统设计.md
+技术文档_图片销售增强版.md
+更新说明_v2.2_广告Banner优化.md
+example_ad_creative.jpg
+frontend/
+icons/
+.DS_Store
