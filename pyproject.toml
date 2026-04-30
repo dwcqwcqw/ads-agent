@@ -1,0 +1,17 @@
+[project]
+name = "ad-system"
+version = "0.1.0"
+description = "广告流量智能系统 - 多智能体协作平台"
+requires-python = ">=3.10"
+dependencies = [
+    "openai>=1.0.0",
+    "langgraph>=0.0.15",
+    "python-dotenv>=1.0.0",
+]
+
+[project.optional-dependencies]
+dev = []
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"

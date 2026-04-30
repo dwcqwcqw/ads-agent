@@ -1,11 +1,15 @@
 .DS_Store
 __pycache__/
 *.pyc
-*.py
 *.py.bak
 .env
-node_modules/
+.env.local
 *.log
 *.egg-info/
 dist/
 build/
+new_ui/node_modules/
+new_ui/.next/
+new_ui/out/
+!api/
+api/__pycache__/
