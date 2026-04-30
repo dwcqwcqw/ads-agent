@@ -1516,7 +1516,17 @@ CTA：限时特惠 年卡仅¥299`
                             {/* 核心指标 */}
                             {report.metrics && report.metrics.length > 0 && (
                               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
-                                {report.metrics.map((metric, i) => <MetricCard key={i} {...metric} />)}
+                                {report.metrics.map((metric, i) => (
+                                  <MetricCard 
+                                    key={i} 
+                                    label={metric.label} 
+                                    value={metric.value} 
+                                    subValue={metric.subValue}
+                                    icon={metric.icon} 
+                                    color={metric.color} 
+                                    trend={'trend' in metric ? metric.trend as 'up' | 'down' : undefined}
+                                  />
+                                ))}
                               </div>
                             )}
 
@@ -1524,14 +1534,14 @@ CTA：限时特惠 年卡仅¥299`
                             {report.charts && report.charts.length > 0 && (
                               <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                                 {report.charts.map((chart, i) => {
-                                  if (chart.type === "bar") return <BarChart key={i} {...chart} />;
-                                  if (chart.type === "funnel") return <FunnelChart key={i} {...chart} />;
-                                  if (chart.type === "scatter") return <ScatterChart key={i} {...chart} />;
-                                  if (chart.type === "pie") return <PieChart key={i} {...chart} />;
-                                  if (chart.type === "line") return <LineChart key={i} {...chart} />;
-                                  if (chart.type === "radar") return <RadarChart key={i} {...chart} />;
-                                  if (chart.type === "donut") return <DonutChart key={i} {...chart} />;
-                                  if (chart.type === "area") return <AreaChart key={i} {...chart} />;
+                                  if (chart.type === "bar") return <BarChart key={i} data={chart.data as {label: string; value: number; color?: string}[]} title={chart.title} />;
+                                  if (chart.type === "funnel") return <FunnelChart key={i} data={chart.data as {label: string; value: number; color?: string}[]} title={chart.title} />;
+                                  if (chart.type === "scatter") return <ScatterChart key={i} data={chart.data as {x: number; y: number; size: number; label: string}[]} title={chart.title} />;
+                                  if (chart.type === "pie") return <PieChart key={i} data={chart.data as {label: string; value: number; color?: string}[]} title={chart.title} />;
+                                  if (chart.type === "line") return <LineChart key={i} data={chart.data as {label: string; value: number}[]} title={chart.title} />;
+                                  if (chart.type === "radar") return <RadarChart key={i} data={chart.data as {label: string; value: number}[]} title={chart.title} />;
+                                  if (chart.type === "donut") return <DonutChart key={i} data={chart.data as {label: string; value: number; color?: string}[]} title={chart.title} />;
+                                  if (chart.type === "area") return <AreaChart key={i} data={chart.data as {label: string; value: number}[]} title={chart.title} />;
                                   return null;
                                 })}
                               </div>
@@ -1540,27 +1550,35 @@ CTA：限时特惠 年卡仅¥299`
                             {/* 文字分析卡片 */}
                             {report.textCards && report.textCards.length > 0 && (
                               <div className="space-y-4">
-                                {report.textCards.map((card, i) => <TextCard key={i} {...card} />)}
+                                {report.textCards.map((card, i) => (
+                                  <TextCard key={i} title={card.title} content={card.content} icon={card.icon} color={card.color} />
+                                ))}
                               </div>
                             )}
 
                             {/* 对话示例 */}
-                            {report.dialogueExamples && report.dialogueExamples.length > 0 && (
+                            {'dialogueExamples' in report && report.dialogueExamples && report.dialogueExamples.length > 0 && (
                               <div className="space-y-4">
-                                {report.dialogueExamples.map((example, i) => <DialogueExample key={i} {...example} />)}
+                                {report.dialogueExamples.map((example, i) => (
+                                  <DialogueExample key={i} messages={example.messages} />
+                                ))}
                               </div>
                             )}
 
                             {/* 图片卡片 */}
-                            {report.imageCards && report.imageCards.length > 0 && (
+                            {'imageCards' in report && report.imageCards && report.imageCards.length > 0 && (
                               <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-                                {report.imageCards.map((card, i) => <ImageCard key={i} {...card} />)}
+                                {report.imageCards.map((card, i) => (
+                                  <ImageCard key={i} src={card.src} title={card.title} description={card.description} />
+                                ))}
                               </div>
                             )}
 
                             {/* 数据表格 */}
-                            {report.tables && report.tables.length > 0 && (
-                              report.tables.map((table, i) => <DataTable key={i} {...table} />)
+                            {'tables' in report && report.tables && report.tables.length > 0 && (
+                              report.tables.map((table, i) => (
+                                <DataTable key={i} title={table.title} headers={table.headers} rows={table.rows} />
+                              ))
                             )}
 
                             {/* 流式文字输出 */}

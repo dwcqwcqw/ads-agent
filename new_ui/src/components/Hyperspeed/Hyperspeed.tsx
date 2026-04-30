@@ -345,19 +345,19 @@ const Hyperspeed = ({ effectOptions }: { effectOptions?: any }) => {
     class App {
       container: HTMLDivElement;
       options: any;
-      renderer: THREE.WebGLRenderer;
-      composer: EffectComposer;
-      camera: THREE.PerspectiveCamera;
-      scene: THREE.Scene;
-      clock: THREE.Clock;
+      renderer!: THREE.WebGLRenderer;
+      composer!: EffectComposer;
+      camera!: THREE.PerspectiveCamera;
+      scene!: THREE.Scene;
+      clock!: THREE.Clock;
       road: any;
       leftCarLights: any;
       rightCarLights: any;
       leftSticks: any;
-      fovTarget: number;
-      speedUpTarget: number;
-      speedUp: number;
-      timeOffset: number;
+      fovTarget!: number;
+      speedUpTarget!: number;
+      speedUp!: number;
+      timeOffset!: number;
       fogUniforms: any;
       hasValidSize: boolean;
 
@@ -693,9 +693,9 @@ const Hyperspeed = ({ effectOptions }: { effectOptions?: any }) => {
       return Math.random() * base;
     };
 
-    const pickRandom = (arr: number[]) => {
-      if (Array.isArray(arr)) return arr[Math.floor(Math.random() * arr.length)];
-      return arr;
+    const pickColor = (arr: THREE.Color[]) => {
+      if (arr.length > 0) return arr[Math.floor(Math.random() * arr.length)];
+      return arr[0];
     };
 
     function lerp(current: number, target: number, speed: number = 0.1, limit: number = 0.001) {
@@ -801,7 +801,7 @@ const Hyperspeed = ({ effectOptions }: { effectOptions?: any }) => {
         let curve = new THREE.LineCurve3(new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, 0, -1));
         let geometry = new THREE.TubeGeometry(curve, 40, 1, 8, false);
 
-        let instanced = new THREE.InstancedBufferGeometry().copy(geometry);
+        let instanced = new THREE.InstancedBufferGeometry().copy(geometry as unknown as THREE.InstancedBufferGeometry);
         instanced.instanceCount = options.lightPairsPerRoadWay * 2;
 
         let laneWidth = options.roadWidth / options.lanesPerRoad;
@@ -810,12 +810,9 @@ const Hyperspeed = ({ effectOptions }: { effectOptions?: any }) => {
         let aMetrics: number[] = [];
         let aColor: number[] = [];
 
-        let colors = this.colors;
-        if (Array.isArray(colors)) {
-          colors = colors.map((c: number) => new THREE.Color(c));
-        } else {
-          colors = new THREE.Color(colors);
-        }
+        let colors: THREE.Color[] = Array.isArray(this.colors) 
+          ? this.colors.map(c => new THREE.Color(c)) 
+          : [new THREE.Color(this.colors)];
 
         for (let i = 0; i < options.lightPairsPerRoadWay; i++) {
           let radius = random(options.carLightsRadius);
@@ -849,7 +846,7 @@ const Hyperspeed = ({ effectOptions }: { effectOptions?: any }) => {
           aMetrics.push(length);
           aMetrics.push(speed);
 
-          let color = pickRandom(colors);
+          let color = pickColor(colors);
           aColor.push(color.r);
           aColor.push(color.g);
           aColor.push(color.b);
@@ -953,7 +950,7 @@ const Hyperspeed = ({ effectOptions }: { effectOptions?: any }) => {
       init() {
         const options = this.options;
         const geometry = new THREE.PlaneGeometry(1, 1);
-        let instanced = new THREE.InstancedBufferGeometry().copy(geometry);
+        let instanced = new THREE.InstancedBufferGeometry().copy(geometry as unknown as THREE.InstancedBufferGeometry);
         let totalSticks = options.totalSideLightSticks;
         instanced.instanceCount = totalSticks;
 
@@ -962,19 +959,16 @@ const Hyperspeed = ({ effectOptions }: { effectOptions?: any }) => {
         const aColor: number[] = [];
         const aMetrics: number[] = [];
 
-        let colors = options.colors.sticks;
-        if (Array.isArray(colors)) {
-          colors = colors.map((c: number) => new THREE.Color(c));
-        } else {
-          colors = new THREE.Color(colors);
-        }
+        let colors: THREE.Color[] = Array.isArray(options.colors.sticks) 
+          ? options.colors.sticks.map((c: number) => new THREE.Color(c)) 
+          : [new THREE.Color(options.colors.sticks)];
 
         for (let i = 0; i < totalSticks; i++) {
           let width = random(options.lightStickWidth);
           let height = random(options.lightStickHeight);
           aOffset.push((i - 1) * stickoffset * 2 + stickoffset * Math.random());
 
-          let color = pickRandom(colors);
+          let color = pickColor(colors);
           aColor.push(color.r);
           aColor.push(color.g);
           aColor.push(color.b);
